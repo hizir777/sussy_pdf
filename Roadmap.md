@@ -1,4 +1,4 @@
-**Vize Projesi Yol Haritası**:
+**Tersine Mühendislik Vize Projesi Yol Haritası**:
 
 * 1. adım: Uptime Kuma analizi
 * 2. adım: Vize projesi (Şüpheli PDF Analizi)
