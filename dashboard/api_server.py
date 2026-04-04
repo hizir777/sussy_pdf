@@ -48,19 +48,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Dashboard statik dosyalarını sun
+# Dashboard statik dosyaları dizini
 dashboard_dir = Path(__file__).parent
-if (dashboard_dir / "index.html").exists():
-    app.mount("/assets", StaticFiles(directory=str(dashboard_dir / "assets")), name="assets")
-
-
-@app.get("/", response_class=HTMLResponse)
-async def serve_dashboard():
-    """Dashboard HTML sayfasını sun."""
-    index_path = dashboard_dir / "index.html"
-    if index_path.exists():
-        return index_path.read_text(encoding="utf-8")
-    return "<h1>Sussy PDF Dashboard</h1><p>index.html bulunamadı.</p>"
 
 
 @app.post("/api/analyze")
@@ -267,3 +256,7 @@ def _run_analysis(file_path: str, content: bytes) -> dict:
             "printable_ratio": round(features.printable_char_ratio, 4),
         },
     }
+
+# API path'leri dışındaki tüm istekleri (/, /style.css, /app.js) statik klasörüne yönlendir
+if (dashboard_dir / "index.html").exists():
+    app.mount("/", StaticFiles(directory=str(dashboard_dir), html=True), name="dashboard")
