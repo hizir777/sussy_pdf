@@ -9,8 +9,6 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from jinja2 import Template
-
 
 class ReportBuilder:
     """Analiz raporu oluşturucu."""
@@ -49,8 +47,11 @@ class ReportBuilder:
         template_path = self.template_dir / "report_template.html"
         if template_path.exists():
             with open(template_path, encoding="utf-8") as f:
-                template = Template(f.read())
-            return template.render(**self._prepare_template_data(results))
+                html = f.read()
+            report_data = json.dumps(
+                self._prepare_template_data(results), ensure_ascii=False
+            )
+            return html.replace('"__REPORT_DATA__"', report_data)
         return self._build_fallback_html(results)
 
     def build_markdown(self, results: dict) -> str:
@@ -112,32 +113,55 @@ class ReportBuilder:
         fi = results.get("file_info")
         score = results.get("score")
         tags = results.get("tags")
+        mitre = results.get("mitre", [])
         return {
             "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-            "file_name": fi.file_name if fi else "N/A",
-            "file_size": fi.file_size_human if fi else "N/A",
-            "md5": fi.md5 if fi else "N/A",
-            "sha1": fi.sha1 if fi else "N/A",
-            "sha256": fi.sha256 if fi else "N/A",
-            "pdf_version": fi.pdf_version if fi else "N/A",
+            "file_info": {
+                "name": fi.file_name if fi else "N/A",
+                "size": fi.file_size_human if fi else "N/A",
+                "version": fi.pdf_version if fi else "N/A",
+                "md5": fi.md5 if fi else "N/A",
+                "sha1": fi.sha1 if fi else "N/A",
+                "sha256": fi.sha256 if fi else "N/A",
+            },
             "risk_score": score.total_score if score else 0,
             "risk_level": score.risk_level if score else "unknown",
             "risk_color": score.risk_color if score else "#808080",
             "verdict": score.verdict if score else "",
-            "breakdown": score.breakdown if score else [],
+            "breakdown": [
+                {
+                    "category": b.category,
+                    "points": b.points,
+                    "max_points": b.max_points,
+                    "details": b.details,
+                }
+                for b in (score.breakdown if score else [])
+            ],
             "recommendations": score.recommendations if score else [],
-            "tag_matches": tags.matches if tags else [],
-            "mitre_mappings": results.get("mitre", []),
+            "tag_matches": [
+                {
+                    "tag": m.tag,
+                    "level": m.threat_level.value,
+                    "count": m.count,
+                    "description": m.description,
+                }
+                for m in (tags.matches if tags else [])
+            ],
+            "mitre_mappings": [
+                {"id": m.technique_id, "name": m.technique_name, "tactic": m.tactic}
+                for m in mitre
+            ],
         }
 
     def _build_fallback_html(self, results: dict) -> str:
         d = self._prepare_template_data(results)
+        fi = d.get("file_info", {})
         return f"""<!DOCTYPE html>
 <html><head><title>Sussy PDF Report</title></head>
 <body style="font-family:monospace;background:#0a0a0a;color:#e0e0e0;padding:2rem;">
-<h1>🔬 Sussy PDF Analiz Raporu</h1>
-<p>Dosya: {d['file_name']} | SHA256: {d['sha256']}</p>
-<h2>Risk: {d['risk_score']}/100 — {d['verdict']}</h2>
+<h1>Sussy PDF Analiz Raporu</h1>
+<p>Dosya: {fi.get('name', 'N/A')} | SHA256: {fi.get('sha256', 'N/A')}</p>
+<h2>Risk: {d['risk_score']}/100 - {d['verdict']}</h2>
 </body></html>"""
 
     # Serialization helpers

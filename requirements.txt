@@ -5,7 +5,8 @@
 pdfminer.six==20231228
 
 # Dosya Tipi Tespiti
-python-magic-bin==0.4.14
+python-magic-bin==0.4.14 ; sys_platform == 'win32'
+python-magic==0.4.27 ; sys_platform != 'win32'
 
 # YARA Kural Motoru (opsiyonel — MSVC gerektirir)
 # yara-python==4.5.1  # pip install yara-python (C++ Build Tools gerekli)

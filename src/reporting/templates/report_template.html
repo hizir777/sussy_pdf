@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔬 Sussy PDF — Analiz Raporu</title>
+    <title>Sussy PDF - Analiz Raporu</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -20,6 +20,7 @@
             --neon-orange: #ff9100;
             --neon-yellow: #ffc400;
             --border: rgba(255,255,255,0.06);
+            --risk-color: #808080;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -55,8 +56,8 @@
         .risk-score {
             font-size: 4rem;
             font-weight: 700;
-            color: {{ risk_color }};
-            text-shadow: 0 0 30px {{ risk_color }}40;
+            color: var(--risk-color);
+            text-shadow: 0 0 30px var(--risk-color);
         }
         .risk-label {
             font-size: 1.1rem;
@@ -92,10 +93,10 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        .badge-critical { background: #ff174420; color: var(--neon-red); border: 1px solid #ff174440; }
-        .badge-high { background: #ff910020; color: var(--neon-orange); border: 1px solid #ff910040; }
-        .badge-medium { background: #ffc40020; color: var(--neon-yellow); border: 1px solid #ffc40040; }
-        .badge-low { background: #00e67620; color: var(--neon-green); border: 1px solid #00e67640; }
+        .badge-critical { background: rgba(255,23,68,0.13); color: var(--neon-red); border: 1px solid rgba(255,23,68,0.25); }
+        .badge-high { background: rgba(255,145,0,0.13); color: var(--neon-orange); border: 1px solid rgba(255,145,0,0.25); }
+        .badge-medium { background: rgba(255,196,0,0.13); color: var(--neon-yellow); border: 1px solid rgba(255,196,0,0.25); }
+        .badge-low { background: rgba(0,230,118,0.13); color: var(--neon-green); border: 1px solid rgba(0,230,118,0.25); }
 
         .progress-bar {
             width: 100%;
@@ -108,6 +109,7 @@
         .progress-fill {
             height: 100%;
             border-radius: 4px;
+            background: var(--risk-color);
             transition: width 0.5s ease;
         }
 
@@ -121,9 +123,9 @@
 
         .mitre-tag {
             display: inline-block;
-            background: #8b5cf620;
+            background: rgba(139,92,246,0.13);
             color: var(--accent-purple);
-            border: 1px solid #8b5cf640;
+            border: 1px solid rgba(139,92,246,0.25);
             padding: 0.3rem 0.8rem;
             border-radius: 6px;
             margin: 0.3rem;
@@ -138,92 +140,181 @@
             padding-top: 2rem;
             border-top: 1px solid var(--border);
         }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .card.full { grid-column: 1; }
+            body { padding: 1rem; }
+            .risk-score { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔬 Sussy PDF — Analiz Raporu</h1>
-            <p class="subtitle">Oluşturulma: {{ timestamp }}</p>
+            <h1>Sussy PDF - Analiz Raporu</h1>
+            <p class="subtitle" id="report-timestamp">Rapor Tarihi</p>
         </div>
 
         <div class="risk-gauge">
-            <div class="risk-score">{{ risk_score }}</div>
+            <div class="risk-score" id="risk-score-value">0</div>
             <div class="risk-label">/ 100 Risk Skoru</div>
-            <p style="margin-top:1rem; font-size:1.1rem;">{{ verdict }}</p>
+            <p style="margin-top:1rem; font-size:1.1rem;" id="verdict-text"></p>
         </div>
 
         <div class="grid">
             <div class="card">
-                <h2>📋 Dosya Bilgileri</h2>
+                <h2>Dosya Bilgileri</h2>
                 <table>
-                    <tr><th>Alan</th><th>Değer</th></tr>
-                    <tr><td>Dosya Adı</td><td class="mono">{{ file_name }}</td></tr>
-                    <tr><td>Boyut</td><td>{{ file_size }}</td></tr>
-                    <tr><td>PDF Versiyonu</td><td>{{ pdf_version }}</td></tr>
-                    <tr><td>MD5</td><td class="mono" style="font-size:0.7rem;">{{ md5 }}</td></tr>
-                    <tr><td>SHA1</td><td class="mono" style="font-size:0.7rem;">{{ sha1 }}</td></tr>
-                    <tr><td>SHA256</td><td class="mono" style="font-size:0.7rem;">{{ sha256 }}</td></tr>
+                    <tr><th>Alan</th><th>Deger</th></tr>
+                    <tbody id="file-info-table"></tbody>
                 </table>
             </div>
 
             <div class="card">
-                <h2>📊 Skor Dağılımı</h2>
-                {% for b in breakdown %}
-                <div style="margin-bottom:1rem;">
-                    <div style="display:flex;justify-content:space-between;">
-                        <span>{{ b.category }}</span>
-                        <span class="mono">{{ b.points }}/{{ b.max_points }}</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width:{{ (b.points/b.max_points*100)|int }}%;background:{{ risk_color }};"></div>
-                    </div>
-                    <small style="color:var(--text-secondary);">{{ b.details }}</small>
-                </div>
-                {% endfor %}
+                <h2>Skor Dagilimi</h2>
+                <div id="score-breakdown"></div>
             </div>
 
             <div class="card full">
-                <h2>🔍 Tehdit Etiketleri</h2>
-                {% if tag_matches %}
-                <table>
-                    <tr><th>Etiket</th><th>Seviye</th><th>Sayı</th><th>Açıklama</th></tr>
-                    {% for m in tag_matches %}
-                    <tr>
-                        <td class="mono tag-{{ m.threat_level.value }}">{{ m.tag }}</td>
-                        <td><span class="badge badge-{{ m.threat_level.value }}">{{ m.threat_level.value|upper }}</span></td>
-                        <td>{{ m.count }}</td>
-                        <td>{{ m.description }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-                {% else %}
-                <p style="color:var(--neon-green);">✅ Şüpheli etiket bulunamadı.</p>
-                {% endif %}
+                <h2>Tehdit Etiketleri</h2>
+                <div id="tags-section"></div>
             </div>
 
             <div class="card">
-                <h2>🎯 MITRE ATT&CK</h2>
-                {% if mitre_mappings %}
-                {% for m in mitre_mappings %}
-                <div class="mitre-tag">{{ m.technique_id }} — {{ m.technique_name }}</div>
-                {% endfor %}
-                {% else %}
-                <p style="color:var(--text-secondary);">Eşleşme yok.</p>
-                {% endif %}
+                <h2>MITRE ATT&amp;CK</h2>
+                <div id="mitre-section"></div>
             </div>
 
             <div class="card">
-                <h2>💡 Öneriler</h2>
-                {% for r in recommendations %}
-                <div class="recommendation">{{ r }}</div>
-                {% endfor %}
+                <h2>Oneriler</h2>
+                <div id="recommendations-section"></div>
             </div>
         </div>
 
         <footer>
-            <p>Sussy PDF Analyzer v1.0.0 — Şüpheli PDF Analiz Platformu</p>
+            <p>Sussy PDF Analyzer v1.0.0</p>
         </footer>
     </div>
+
+    <script>
+        // Report data is injected by Python's report_builder.py
+        // via string replacement of the REPORT_DATA placeholder
+        var REPORT_DATA = "__REPORT_DATA__";
+
+        function init() {
+            if (REPORT_DATA === "__REPORT_DATA__") return;
+
+            var data;
+            try {
+                data = JSON.parse(REPORT_DATA);
+            } catch (e) {
+                return;
+            }
+
+            // Set risk color CSS variable
+            if (data.risk_color) {
+                document.documentElement.style.setProperty("--risk-color", data.risk_color);
+            }
+
+            // Timestamp
+            var tsEl = document.getElementById("report-timestamp");
+            if (tsEl && data.timestamp) tsEl.textContent = "Olusturulma: " + data.timestamp;
+
+            // Risk score
+            var scoreEl = document.getElementById("risk-score-value");
+            if (scoreEl) scoreEl.textContent = data.risk_score || "0";
+
+            // Verdict
+            var verdictEl = document.getElementById("verdict-text");
+            if (verdictEl) verdictEl.textContent = data.verdict || "";
+
+            // File info
+            var fileTable = document.getElementById("file-info-table");
+            if (fileTable && data.file_info) {
+                var rows = [
+                    ["Dosya Adi", data.file_info.name],
+                    ["Boyut", data.file_info.size],
+                    ["PDF Versiyon", data.file_info.version],
+                    ["MD5", data.file_info.md5],
+                    ["SHA1", data.file_info.sha1],
+                    ["SHA256", data.file_info.sha256]
+                ];
+                var html = "";
+                for (var i = 0; i < rows.length; i++) {
+                    var cls = (i >= 3) ? ' class="mono" style="font-size:0.7rem;"' : "";
+                    html += "<tr><td>" + rows[i][0] + "</td><td" + cls + ">" + (rows[i][1] || "N/A") + "</td></tr>";
+                }
+                fileTable.innerHTML = html;
+            }
+
+            // Score breakdown
+            var breakdownEl = document.getElementById("score-breakdown");
+            if (breakdownEl && data.breakdown) {
+                var bhtml = "";
+                for (var j = 0; j < data.breakdown.length; j++) {
+                    var b = data.breakdown[j];
+                    var pct = Math.round((b.points / b.max_points) * 100);
+                    bhtml += '<div style="margin-bottom:1rem;">';
+                    bhtml += '<div style="display:flex;justify-content:space-between;">';
+                    bhtml += "<span>" + b.category + "</span>";
+                    bhtml += '<span class="mono">' + b.points + "/" + b.max_points + "</span>";
+                    bhtml += "</div>";
+                    bhtml += '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%;"></div></div>';
+                    bhtml += '<small style="color:var(--text-secondary);">' + b.details + "</small>";
+                    bhtml += "</div>";
+                }
+                breakdownEl.innerHTML = bhtml;
+            }
+
+            // Tags
+            var tagsEl = document.getElementById("tags-section");
+            if (tagsEl && data.tag_matches) {
+                if (data.tag_matches.length === 0) {
+                    tagsEl.innerHTML = '<p style="color:var(--neon-green);">Supheli etiket bulunamadi.</p>';
+                } else {
+                    var thtml = "<table><tr><th>Etiket</th><th>Seviye</th><th>Sayi</th><th>Aciklama</th></tr>";
+                    for (var k = 0; k < data.tag_matches.length; k++) {
+                        var tag = data.tag_matches[k];
+                        thtml += "<tr>";
+                        thtml += '<td class="mono tag-' + tag.level + '">' + tag.tag + "</td>";
+                        thtml += '<td><span class="badge badge-' + tag.level + '">' + tag.level.toUpperCase() + "</span></td>";
+                        thtml += "<td>" + tag.count + "</td>";
+                        thtml += "<td>" + tag.description + "</td>";
+                        thtml += "</tr>";
+                    }
+                    thtml += "</table>";
+                    tagsEl.innerHTML = thtml;
+                }
+            }
+
+            // MITRE
+            var mitreEl = document.getElementById("mitre-section");
+            if (mitreEl && data.mitre_mappings) {
+                if (data.mitre_mappings.length === 0) {
+                    mitreEl.innerHTML = '<p style="color:var(--text-secondary);">Eslesme yok.</p>';
+                } else {
+                    var mhtml = "";
+                    for (var n = 0; n < data.mitre_mappings.length; n++) {
+                        var mi = data.mitre_mappings[n];
+                        mhtml += '<div class="mitre-tag">' + mi.id + " - " + mi.name + "</div>";
+                    }
+                    mitreEl.innerHTML = mhtml;
+                }
+            }
+
+            // Recommendations
+            var recEl = document.getElementById("recommendations-section");
+            if (recEl && data.recommendations) {
+                var rhtml = "";
+                for (var p = 0; p < data.recommendations.length; p++) {
+                    rhtml += '<div class="recommendation">' + data.recommendations[p] + "</div>";
+                }
+                recEl.innerHTML = rhtml;
+            }
+        }
+
+        init();
+    </script>
 </body>
 </html>
