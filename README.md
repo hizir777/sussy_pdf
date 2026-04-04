@@ -47,7 +47,7 @@
 
 ```bash
 # Repoyu klonla
-git clone https://github.com/your-username/sussy_pdf.git
+git clone https://github.com/hizir777/sussy_pdf.git
 cd sussy_pdf
 
 # Sanal ortam oluştur
@@ -115,9 +115,6 @@ curl -X POST http://localhost:8443/api/analyze \
 ```bash
 # Tüm testleri çalıştır
 pytest tests/ -v
-
-# Kapsam raporu ile
-pytest tests/ -v --cov=src --cov-report=html
 
 # Belirli modül testi
 pytest tests/test_tag_scanner.py -v
