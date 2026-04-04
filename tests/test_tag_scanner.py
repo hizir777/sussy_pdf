@@ -2,8 +2,7 @@
 Test suite: Tag Scanner modülü
 """
 
-import pytest
-from src.static_analysis.tag_scanner import TagScanner, ThreatLevel
+from src.static_analysis.tag_scanner import TagScanner
 
 
 class TestTagScanner:

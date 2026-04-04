@@ -7,7 +7,7 @@ dosyanın istatistiksel profilini oluşturur.
 
 import math
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass
@@ -75,7 +75,7 @@ class PDFFeatures:
         for v in self.__dict__.values():
             if isinstance(v, bool):
                 result.append(1.0 if v else 0.0)
-            elif isinstance(v, (int, float)):
+            elif isinstance(v, int | float):
                 result.append(float(v))
         return result
 

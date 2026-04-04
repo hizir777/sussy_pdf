@@ -4,7 +4,9 @@ Test suite: Ingestion modülü
 
 import os
 import tempfile
+
 import pytest
+
 from src.ingestion.file_handler import FileHandler
 
 

@@ -5,9 +5,7 @@ Bu script unit testlerde kullanılmak üzere
 zararsız ve şüpheli PDF örnekleri üretir.
 """
 
-import os
 from pathlib import Path
-
 
 FIXTURES_DIR = Path(__file__).parent
 

@@ -2,7 +2,6 @@
 Test suite: PDF Parser modülü
 """
 
-import pytest
 from src.static_analysis.pdf_parser import PDFParser
 
 

@@ -9,7 +9,6 @@ Kullanım:
     python -m src.main serve  # Dashboard API sunucusu
 """
 
-import json
 import os
 import sys
 from pathlib import Path
@@ -25,27 +24,27 @@ if sys.platform == "win32":
 import click
 from rich.console import Console
 from rich.panel import Panel
-from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.table import Table
 
-from src.ingestion.file_handler import FileHandler
-from src.ingestion.metadata_extractor import MetadataExtractor
-from src.static_analysis.pdf_parser import PDFParser
-from src.static_analysis.object_tree import ObjectTreeBuilder
-from src.static_analysis.tag_scanner import TagScanner
-from src.static_analysis.incremental_update import IncrementalUpdateChecker
+from src.deobfuscation.ast_analyzer import ASTAnalyzer
+from src.deobfuscation.js_deobfuscator import JSDeobfuscator
 from src.deobfuscation.stream_decoder import StreamDecoder
 from src.deobfuscation.string_decoder import StringDecoder
-from src.deobfuscation.js_deobfuscator import JSDeobfuscator
-from src.deobfuscation.ast_analyzer import ASTAnalyzer
 from src.dynamic_analysis.js_emulator import JSEmulator
 from src.dynamic_analysis.sandbox_monitor import SandboxMonitor
-from src.scoring.yara_engine import YaraEngine
-from src.scoring.heuristic_scorer import HeuristicScorer
-from src.scoring.feature_extractor import FeatureExtractor
-from src.scoring.mitre_mapper import MITREMapper
+from src.ingestion.file_handler import FileHandler
+from src.ingestion.metadata_extractor import MetadataExtractor
 from src.reporting.ioc_generator import IOCGenerator
 from src.reporting.report_builder import ReportBuilder
+from src.scoring.feature_extractor import FeatureExtractor
+from src.scoring.heuristic_scorer import HeuristicScorer
+from src.scoring.mitre_mapper import MITREMapper
+from src.scoring.yara_engine import YaraEngine
+from src.static_analysis.incremental_update import IncrementalUpdateChecker
+from src.static_analysis.object_tree import ObjectTreeBuilder
+from src.static_analysis.pdf_parser import PDFParser
+from src.static_analysis.tag_scanner import TagScanner
 
 console = Console()
 
@@ -238,6 +237,7 @@ def serve(host: str, port: int):
     """Dashboard API sunucusunu başlat."""
     console.print(f"🚀 Dashboard başlatılıyor: http://{host}:{port}")
     import uvicorn
+
     from dashboard.api_server import app
     uvicorn.run(app, host=host, port=port)
 

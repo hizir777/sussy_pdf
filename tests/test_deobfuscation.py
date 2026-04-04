@@ -2,9 +2,8 @@
 Test suite: De-obfuscation modülü
 """
 
-import pytest
-from src.deobfuscation.string_decoder import StringDecoder
 from src.deobfuscation.js_deobfuscator import JSDeobfuscator
+from src.deobfuscation.string_decoder import StringDecoder
 
 
 class TestStringDecoder:

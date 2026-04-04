@@ -6,7 +6,6 @@ yapısıyla analiz ederek polimorfik değişimleri tespit eder.
 """
 
 import re
-import ast as python_ast
 from dataclasses import dataclass, field
 
 

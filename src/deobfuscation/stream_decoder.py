@@ -5,8 +5,8 @@ stream_decoder.py — PDF Stream Dekompresyon Motoru
 filtreleri çözerek sıkıştırılmış veriyi ham hale getirir.
 """
 
-import zlib
 import re
+import zlib
 from dataclasses import dataclass, field
 
 

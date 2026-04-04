@@ -5,11 +5,11 @@ Tespit edilen URL, IP, domain ve hash değerlerini
 eyleme geçirilebilir istihbarat raporuna dönüştürür.
 """
 
-import json
 import hashlib
+import json
 import os
-from datetime import datetime, timezone
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 
 import requests
 

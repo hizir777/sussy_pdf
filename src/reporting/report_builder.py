@@ -48,7 +48,7 @@ class ReportBuilder:
         """HTML raporu oluştur."""
         template_path = self.template_dir / "report_template.html"
         if template_path.exists():
-            with open(template_path, "r", encoding="utf-8") as f:
+            with open(template_path, encoding="utf-8") as f:
                 template = Template(f.read())
             return template.render(**self._prepare_template_data(results))
         return self._build_fallback_html(results)
@@ -62,8 +62,8 @@ class ReportBuilder:
         fi = results.get("file_info")
         if fi:
             lines.append("## 📋 Dosya Bilgileri\n")
-            lines.append(f"| Alan | Değer |")
-            lines.append(f"|------|-------|")
+            lines.append("| Alan | Değer |")
+            lines.append("|------|-------|")
             lines.append(f"| Dosya Adı | `{fi.file_name}` |")
             lines.append(f"| Boyut | {fi.file_size_human} |")
             lines.append(f"| MD5 | `{fi.md5}` |")

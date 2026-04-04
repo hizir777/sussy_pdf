@@ -2,10 +2,9 @@
 Test suite: Scoring modülü
 """
 
-import pytest
 from src.scoring.heuristic_scorer import HeuristicScorer
-from src.static_analysis.tag_scanner import TagScanner
 from src.static_analysis.incremental_update import IncrementalUpdateChecker
+from src.static_analysis.tag_scanner import TagScanner
 
 
 class TestHeuristicScorer:

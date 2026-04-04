@@ -4,7 +4,6 @@ yara_engine.py — YARA Kural Motoru
 YARA kurallarını yükler ve PDF dosyaları üzerinde çalıştırır.
 """
 
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -57,7 +56,7 @@ class YaraEngine:
         if rule_files:
             try:
                 self.compiled_rules = yara.compile(filepaths=rule_files)
-            except yara.Error as e:
+            except yara.Error:
                 self.compiled_rules = None
 
     def scan(self, content: bytes) -> YaraResult:
