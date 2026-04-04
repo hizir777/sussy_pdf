@@ -2,7 +2,7 @@
 # Deterministic deployment — her ortamda aynı sürümler
 
 # PDF Analiz
-pdfminer.six==20231228
+pdfminer.six==20251230
 
 # Dosya Tipi Tespiti
 python-magic-bin==0.4.14 ; sys_platform == 'win32'
@@ -12,7 +12,7 @@ python-magic==0.4.27 ; sys_platform != 'win32'
 # yara-python==4.5.1  # pip install yara-python (C++ Build Tools gerekli)
 
 # HTTP İstekleri (VirusTotal API vb.)
-requests==2.32.3
+requests==2.33.0
 
 # Çevresel Değişkenler
 python-dotenv==1.0.1
@@ -23,9 +23,9 @@ click==8.1.7
 
 # Dashboard API
 fastapi==0.115.6
+starlette==0.49.1
 uvicorn==0.34.0
-python-multipart==0.0.20
-jinja2==3.1.4
+python-multipart==0.0.22
 
 # === Geliştirme Bağımlılıkları ===
 # pip install -r requirements.txt && pip install pytest pytest-cov ruff httpx
