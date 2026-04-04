@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  # === Analiz Motoru ===
+  analyzer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: sussy-pdf-analyzer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M
+    volumes:
+      - ../uploads:/app/uploads:rw
+      - ../output:/app/output:rw
+      - ../specs/yara_rules:/app/specs/yara_rules:ro
+    env_file:
+      - ../.env
+    networks:
+      - analysis_net
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+
+  # === Dashboard API ===
+  dashboard:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: sussy-pdf-dashboard
+    restart: unless-stopped
+    command: ["serve"]
+    ports:
+      - "8443:8443"
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ../uploads:/app/uploads:rw
+      - ../output:/app/output:ro
+      - ../specs/yara_rules:/app/specs/yara_rules:ro
+    env_file:
+      - ../.env
+    networks:
+      - analysis_net
+    depends_on:
+      - analyzer
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+networks:
+  analysis_net:
+    driver: bridge
+    internal: false

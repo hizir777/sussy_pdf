@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔬 Sussy PDF — Analiz Raporu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-card: #1a1f35;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --neon-green: #00e676;
+            --neon-red: #ff1744;
+            --neon-orange: #ff9100;
+            --neon-yellow: #ffc400;
+            --border: rgba(255,255,255,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent-blue); }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+        .header {
+            background: linear-gradient(135deg, #1e2440 0%, #0f1629 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .header .subtitle { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .risk-gauge {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .risk-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: {{ risk_color }};
+            text-shadow: 0 0 30px {{ risk_color }}40;
+        }
+        .risk-label {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .card.full { grid-column: 1 / -1; }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            padding: 0.6rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th { color: var(--text-secondary); font-size: 0.8rem; text-transform: uppercase; }
+
+        .tag-critical { color: var(--neon-red); }
+        .tag-high { color: var(--neon-orange); }
+        .tag-medium { color: var(--neon-yellow); }
+        .tag-low { color: var(--neon-green); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-critical { background: #ff174420; color: var(--neon-red); border: 1px solid #ff174440; }
+        .badge-high { background: #ff910020; color: var(--neon-orange); border: 1px solid #ff910040; }
+        .badge-medium { background: #ffc40020; color: var(--neon-yellow); border: 1px solid #ffc40040; }
+        .badge-low { background: #00e67620; color: var(--neon-green); border: 1px solid #00e67640; }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .recommendation {
+            background: #1e293b;
+            border-left: 3px solid var(--accent-blue);
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .mitre-tag {
+            display: inline-block;
+            background: #8b5cf620;
+            color: var(--accent-purple);
+            border: 1px solid #8b5cf640;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            margin: 0.3rem;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Sussy PDF — Analiz Raporu</h1>
+            <p class="subtitle">Oluşturulma: {{ timestamp }}</p>
+        </div>
+
+        <div class="risk-gauge">
+            <div class="risk-score">{{ risk_score }}</div>
+            <div class="risk-label">/ 100 Risk Skoru</div>
+            <p style="margin-top:1rem; font-size:1.1rem;">{{ verdict }}</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>📋 Dosya Bilgileri</h2>
+                <table>
+                    <tr><th>Alan</th><th>Değer</th></tr>
+                    <tr><td>Dosya Adı</td><td class="mono">{{ file_name }}</td></tr>
+                    <tr><td>Boyut</td><td>{{ file_size }}</td></tr>
+                    <tr><td>PDF Versiyonu</td><td>{{ pdf_version }}</td></tr>
+                    <tr><td>MD5</td><td class="mono" style="font-size:0.7rem;">{{ md5 }}</td></tr>
+                    <tr><td>SHA1</td><td class="mono" style="font-size:0.7rem;">{{ sha1 }}</td></tr>
+                    <tr><td>SHA256</td><td class="mono" style="font-size:0.7rem;">{{ sha256 }}</td></tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>📊 Skor Dağılımı</h2>
+                {% for b in breakdown %}
+                <div style="margin-bottom:1rem;">
+                    <div style="display:flex;justify-content:space-between;">
+                        <span>{{ b.category }}</span>
+                        <span class="mono">{{ b.points }}/{{ b.max_points }}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:{{ (b.points/b.max_points*100)|int }}%;background:{{ risk_color }};"></div>
+                    </div>
+                    <small style="color:var(--text-secondary);">{{ b.details }}</small>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="card full">
+                <h2>🔍 Tehdit Etiketleri</h2>
+                {% if tag_matches %}
+                <table>
+                    <tr><th>Etiket</th><th>Seviye</th><th>Sayı</th><th>Açıklama</th></tr>
+                    {% for m in tag_matches %}
+                    <tr>
+                        <td class="mono tag-{{ m.threat_level.value }}">{{ m.tag }}</td>
+                        <td><span class="badge badge-{{ m.threat_level.value }}">{{ m.threat_level.value|upper }}</span></td>
+                        <td>{{ m.count }}</td>
+                        <td>{{ m.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p style="color:var(--neon-green);">✅ Şüpheli etiket bulunamadı.</p>
+                {% endif %}
+            </div>
+
+            <div class="card">
+                <h2>🎯 MITRE ATT&CK</h2>
+                {% if mitre_mappings %}
+                {% for m in mitre_mappings %}
+                <div class="mitre-tag">{{ m.technique_id }} — {{ m.technique_name }}</div>
+                {% endfor %}
+                {% else %}
+                <p style="color:var(--text-secondary);">Eşleşme yok.</p>
+                {% endif %}
+            </div>
+
+            <div class="card">
+                <h2>💡 Öneriler</h2>
+                {% for r in recommendations %}
+                <div class="recommendation">{{ r }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <footer>
+            <p>Sussy PDF Analyzer v1.0.0 — Şüpheli PDF Analiz Platformu</p>
+        </footer>
+    </div>
+</body>
+</html>

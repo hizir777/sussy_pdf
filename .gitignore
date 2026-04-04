@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Environment Variables (HASSAS VERİLER)
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test & Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+test_logs/
+*.log
+
+# Node (Dashboard)
+node_modules/
+package-lock.json
+
+# Docker
+docker/data/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Analysis outputs
+output/
+reports/
+*.report.json
+*.report.html
+
+# Uploaded samples (güvenlik)
+uploads/
+samples/
+!tests/fixtures/

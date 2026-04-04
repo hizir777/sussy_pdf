@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sussy PDF — Şüpheli PDF dosyalarını analiz eden profesyonel güvenlik platformu">
+    <title>🔬 Sussy PDF — Şüpheli PDF Analiz Platformu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header" id="app-header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">🔬</span>
+                    <span class="logo-text">Sussy<span class="logo-accent">PDF</span></span>
+                </div>
+                <span class="version-badge">v1.0.0</span>
+            </div>
+            <div class="header-right">
+                <div class="status-indicator" id="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span>Hazır</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Upload Section -->
+            <section class="upload-section" id="upload-section">
+                <div class="upload-card glass-card">
+                    <div class="upload-zone" id="upload-zone">
+                        <div class="upload-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                        </div>
+                        <h2>PDF Dosyasını Sürükle & Bırak</h2>
+                        <p class="upload-subtitle">veya tıklayarak dosya seçin</p>
+                        <p class="upload-limit">Maksimum dosya boyutu: 50MB</p>
+                        <input type="file" id="file-input" accept=".pdf" hidden>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analyzing Section -->
+            <section class="analyzing-section hidden" id="analyzing-section">
+                <div class="glass-card analyzing-card">
+                    <div class="analyzing-spinner"></div>
+                    <h2 id="analyzing-text">Analiz ediliyor...</h2>
+                    <div class="analyzing-steps" id="analyzing-steps">
+                        <div class="step" data-step="ingestion">📥 Dosya alınıyor</div>
+                        <div class="step" data-step="static">🔍 Statik analiz</div>
+                        <div class="step" data-step="deobfuscation">🔓 Gizleme çözme</div>
+                        <div class="step" data-step="dynamic">⚡ Dinamik analiz</div>
+                        <div class="step" data-step="scoring">📊 Risk hesaplama</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section hidden" id="results-section">
+                <!-- Risk Gauge -->
+                <div class="risk-gauge-container glass-card" id="risk-gauge-card">
+                    <div class="risk-gauge" id="risk-gauge">
+                        <svg viewBox="0 0 200 120" class="gauge-svg">
+                            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#1e293b" stroke-width="12" stroke-linecap="round"/>
+                            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke-width="12" stroke-linecap="round"
+                                  id="gauge-arc" class="gauge-arc"/>
+                        </svg>
+                        <div class="gauge-score" id="gauge-score">0</div>
+                        <div class="gauge-label">Risk Skoru</div>
+                    </div>
+                    <div class="verdict" id="verdict"></div>
+                </div>
+
+                <div class="results-grid">
+                    <!-- File Info -->
+                    <div class="result-card glass-card" id="file-info-card">
+                        <h3 class="card-title"><span class="card-icon">📋</span> Dosya Bilgileri</h3>
+                        <div class="card-content" id="file-info-content"></div>
+                    </div>
+
+                    <!-- Score Breakdown -->
+                    <div class="result-card glass-card" id="score-breakdown-card">
+                        <h3 class="card-title"><span class="card-icon">📊</span> Skor Dağılımı</h3>
+                        <div class="card-content" id="score-breakdown-content"></div>
+                    </div>
+
+                    <!-- Threat Tags -->
+                    <div class="result-card glass-card full-width" id="tags-card">
+                        <h3 class="card-title"><span class="card-icon">🔍</span> Tehdit Etiketleri</h3>
+                        <div class="card-content" id="tags-content"></div>
+                    </div>
+
+                    <!-- Structure -->
+                    <div class="result-card glass-card" id="structure-card">
+                        <h3 class="card-title"><span class="card-icon">🏗️</span> PDF Yapısı</h3>
+                        <div class="card-content" id="structure-content"></div>
+                    </div>
+
+                    <!-- MITRE ATT&CK -->
+                    <div class="result-card glass-card" id="mitre-card">
+                        <h3 class="card-title"><span class="card-icon">🎯</span> MITRE ATT&CK</h3>
+                        <div class="card-content" id="mitre-content"></div>
+                    </div>
+
+                    <!-- IOC -->
+                    <div class="result-card glass-card full-width" id="ioc-card">
+                        <h3 class="card-title"><span class="card-icon">🔗</span> IOC Göstergeleri</h3>
+                        <div class="card-content" id="ioc-content"></div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="result-card glass-card full-width" id="recommendations-card">
+                        <h3 class="card-title"><span class="card-icon">💡</span> Öneriler</h3>
+                        <div class="card-content" id="recommendations-content"></div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions">
+                    <button class="btn btn-primary" id="btn-new-analysis" onclick="resetAnalysis()">
+                        🔄 Yeni Analiz
+                    </button>
+                    <button class="btn btn-secondary" id="btn-download-json" onclick="downloadReport('json')">
+                        📥 JSON İndir
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Sussy PDF Analyzer v1.0.0 — Zero Trust PDF Analysis Platform</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

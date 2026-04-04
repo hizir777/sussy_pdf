@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sussy-pdf"
+version = "1.0.0"
+description = "Şüpheli PDF Analiz Platformu — Zararlı PDF dosyalarını tespit eden profesyonel analiz motoru"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Sussy PDF Team"}
+]
+keywords = ["pdf", "malware", "analysis", "cybersecurity", "forensics"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Information Technology",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "pdfminer.six==20231228",
+    "python-magic-bin==0.4.14",
+    "yara-python==4.5.1",
+    "requests==2.32.3",
+    "python-dotenv==1.0.1",
+    "rich==13.9.4",
+    "click==8.1.7",
+    "fastapi==0.115.6",
+    "uvicorn==0.34.0",
+    "python-multipart==0.0.20",
+    "jinja2==3.1.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4",
+    "pytest-cov==6.0.0",
+    "ruff==0.8.6",
+    "httpx==0.28.1",
+]
+
+[project.scripts]
+sussy-pdf = "src.main:cli"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP"]
+ignore = ["E501"]
+
+[tool.setuptools.packages.find]
+include = ["src*"]

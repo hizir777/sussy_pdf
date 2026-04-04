@@ -1,0 +1,30 @@
+# === Sussy PDF - Bağımlılıklar (Pinned) ===
+# Deterministic deployment — her ortamda aynı sürümler
+
+# PDF Analiz
+pdfminer.six==20231228
+
+# Dosya Tipi Tespiti
+python-magic-bin==0.4.14
+
+# YARA Kural Motoru (opsiyonel — MSVC gerektirir)
+# yara-python==4.5.1  # pip install yara-python (C++ Build Tools gerekli)
+
+# HTTP İstekleri (VirusTotal API vb.)
+requests==2.32.3
+
+# Çevresel Değişkenler
+python-dotenv==1.0.1
+
+# CLI Arayüzü
+rich==13.9.4
+click==8.1.7
+
+# Dashboard API
+fastapi==0.115.6
+uvicorn==0.34.0
+python-multipart==0.0.20
+jinja2==3.1.4
+
+# === Geliştirme Bağımlılıkları ===
+# pip install -r requirements.txt && pip install pytest pytest-cov ruff httpx
