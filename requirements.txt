@@ -27,5 +27,22 @@ starlette==0.49.1
 uvicorn==0.34.0
 python-multipart==0.0.22
 
+# Güvenlik & Kimlik Doğrulama (v1.1.0+)
+python-jose==3.3.0  # JWT tokens
+cryptography==43.0.0  # Encryption, secure key management
+pycryptodome==3.21.0  # AES encryption for PDF password-protected files
+
+# Rate Limiting (v1.1.0+)
+slowapi==0.1.9  # Async-compatible rate limiter
+
+# Database / Future Support (v1.1.0+)
+sqlalchemy==2.0.31  # ORM for audit logging
+alembic==1.15.0  # Database migrations
+
+# Async Improvements (v1.2.0+)
+aiofiles==23.2.1  # Async file I/O
+
 # === Geliştirme Bağımlılıkları ===
-# pip install -r requirements.txt && pip install pytest pytest-cov ruff httpx
+# pip install -r requirements.txt
+# Sonra development tools:
+# pip install pytest pytest-cov ruff mypy httpx

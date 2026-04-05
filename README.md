@@ -158,6 +158,87 @@ sussy_pdf/
 └── docs/                 # Dokümantasyon
 ```
 
+## 🔒 Güvenlik & Kimlik Doğrulama (v1.1.0+)
+
+### API Authentication
+
+Web dashboard ve API endpoints JWT token veya API key kullanarak korunmaktadır:
+
+```bash
+# JWT Token ile
+curl -X POST http://localhost:8443/api/analyze \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -F "file=@suspicious.pdf"
+
+# API Key ile
+curl -X POST http://localhost:8443/api/analyze \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -F "file=@suspicious.pdf"
+```
+
+### Güvenlik Özellikleri
+
+✅ **Gömülü**: Input validation, rate limiting, CORS protection  
+✅ **Şifreleme**: AES-128/256 PDF şifre çözme desteği  
+✅ **Logging**: Terştilenmiş JSON audit trail  
+✅ **Docker**: Rootless container, read-only filesystem  
+
+Detaylar: [SECURITY.md](SECURITY.md)
+
+## 📊 Açık Kaynak Gelişmeler (v1.1.0+)
+
+- ✅ CONTRIBUTING.md & Developer Guide
+- ✅ GitHub Issue/PR templates
+- ✅ Comprehensive test suite (pytest)
+- ✅ CI/CD workflows (GitHub Actions)
+- ✅ Roadmap & Milestones
+- ✅ Security policy & best practices
+- ✅ PDF encryption support
+- ✅ Async processing capability (coming)
+- ✅ Machine Learning foundation (planned)
+
+## 👥 Katkı Yapın
+
+Geliştirme, test yazma, veya belgelendirme konusunda yardımcı olmak istiyorsanız:
+
+1. [CONTRIBUTING.md](CONTRIBUTING.md) rehberini okuyun
+2. [ROADMAP.md](ROADMAP.md) ile gelecek planı kontrol edin
+3. GitHub Issues'da [feature request](https://github.com/hizir777/sussy_pdf/issues/new?template=02_feature_request.yml) açın
+4. Pull request gönderin (CLA gerekli olmayan)
+
+Tüm katkılar [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) tarafından yönetilir.
+
+## 📖 Dokümantasyon
+
+- [README.md](README.md) — This file
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Developer guide
+- [SECURITY.md](SECURITY.md) — Security & best practices
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — Sorun giderme
+- [ROADMAP.md](ROADMAP.md) — Gelişme planı
+- [docs/methodology.md](docs/methodology.md) — Analiz metodolojisi
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Topluluk kuralları
+
+## 🐛 Sorun Bildirimi
+
+Bir hata mı buldunuz? [GitHub Issues](https://github.com/hizir777/sussy_pdf/issues) sayfasında rapor edin:
+
+- 🔴 **Kritik:** Security zafiyeti → [SECURITY.md](SECURITY.md) incident reporting bölümü
+- 🟠 **Yüksek:** Crash veya veri kaybı
+- 🟡 **Normal:** Feature request veya improvement
+- 🔵 **Düşük:** Documentation fix, typo
+
+## 💬 Topluluk
+
+- **Discussions:** [GitHub Discussions](https://github.com/hizir777/sussy_pdf/discussions)
+- **Issues:** [Feature requests & bug reports](https://github.com/hizir777/sussy_pdf/issues)
+- **Email:** maintainers@sussy-pdf.dev
+
+## 📈 İstatistikler
+
+![GitHub stars](https://img.shields.io/github/stars/hizir777/sussy_pdf?style=social)
+![GitHub forks](https://img.shields.io/github/forks/hizir777/sussy_pdf?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/hizir777/sussy_pdf?style=social)
+
 ## 🔒 Güvenlik Notları
 
 - Analiz araçları Docker container içinde izole çalışır

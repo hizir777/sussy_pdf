@@ -1,0 +1,98 @@
+name: Bug Raporu
+description: Sository'de bulduğunuz bir hata bildir
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hata raporunuz için teşekkürler! Lütfen mümkün olan en kadar bilgi sağlayın.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Sorun Açıklaması
+      description: Ne olup bittiğini kısaca açıkla
+      placeholder: PDFParser sınıfı şifreli PDF dosyaları açarken hata veriyor...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Tekrarlanma Adımları
+      description: Hatayı yeniden üretmek için adımlar
+      value: |
+        1. Şunu yaptım: `python -m src.main analyze encrypted.pdf`
+        2. Sonra gözlemledim: [hata mesajı]
+        3. Bekledim: [beklenen sonuç]
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Beklenen Davranış
+      description: Ne olması gerekiyordu?
+      placeholder: Dosya başarıyla analiz edilip rapor üretilmeli
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Hata Mesajı / Stack Trace
+      description: Tam hata çıktısı (lütfen kopyala-yapıştır)
+      render: bash
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: İşletim Sistemi
+      options:
+        - Windows 11
+        - Windows 10
+        - Ubuntu 22.04
+        - Ubuntu 20.04
+        - macOS 13+
+        - Diğer
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python Versiyonu
+      description: "Çalıştır: python --version"
+      placeholder: "Python 3.10.5"
+    validations:
+      required: true
+
+  - type: input
+    id: sussy-version
+    attributes:
+      label: Sussy PDF Versiyonu
+      description: "Kontrol et: pip show sussy-pdf"
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Ek Bilgi
+      description: Başka olan önemli bir şey var mı? (logs, scripts, etc.)
+      placeholder: Dosya boyutu 150MB, sistem hafızası 8GB...
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Kontrol
+      options:
+        - label: README'yi okudum
+          required: true
+        - label: Benzer bir sorun yoksa araştırdım
+          required: true
+        - label: Minimum Python 3.10 var
+          required: true

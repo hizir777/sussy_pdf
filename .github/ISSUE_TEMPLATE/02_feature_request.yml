@@ -1,0 +1,63 @@
+name: İçerik Önerisi
+description: Yeni bir özellik veya iyileştirme öner
+labels: ["enhancement", "triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Öneriniz için teşekkürler! Yeni özellik veya iyileştirme hakkında bize bilgi verin.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Özellik Tanımı
+      description: Ne eklemek istiyorsunuz?
+      placeholder: "PDF şifresi desteği eklemeli (AES-128, AES-256)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivasyon / Use Case
+      description: Neden bu özellik gerekli? Kimin kullanacağı?
+      placeholder: |
+        Kurumsal ortamlarda çok sayıda şifreli PDF varlığı nedeniyle...
+        Bu özellik şu iş akışını destekler...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Önerilen Çözüm
+      description: Nasıl implement edilebilir? (isteğe bağlı)
+      placeholder: |
+        1. pycryptodome bağımlılığını ekle
+        2. `EncryptionHandler` sınıfı oluştur
+        3. main.py'a --password parametresi ekle
+        4. Tests yaz
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatif Çözümler
+      description: Başka yaklaşımlar düşündünüz mü?
+      placeholder: PyPDF4 yerine pikepdf kullanılabilir...
+
+  - type: checkboxes
+    id: context
+    attributes:
+      label: Bağlam
+      options:
+        - label: Bu ROADMAP'te mi var?
+        - label: Benchmarks veya benchmark plans varsa ekle
+        - label: Bu breaking change'i gerektiriyor mu?
+
+  - type: input
+    id: related
+    attributes:
+      label: İlişkili Sorunlar
+      description: Issue numaraları (örn. #123, #456)
+      placeholder: "#42, #100"

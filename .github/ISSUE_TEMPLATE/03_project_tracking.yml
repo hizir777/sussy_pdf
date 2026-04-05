@@ -1,0 +1,11 @@
+name: Proje Yönetimi
+description: Proje durumunu bildirin (maintainers için)
+labels: ["internal"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Başlık
+      placeholder: "Sprint 3: Async Processing"
+    validations:
+      required: true
