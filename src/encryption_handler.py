@@ -30,13 +30,13 @@ class PDFEncryptionHandler:
                 "pypdf not installed. "
                 "Install with: pip install pypdf"
             )
-    
+
     def is_encrypted(self, pdf_content: bytes) -> bool:
         """Check if PDF is encrypted.
 
         Args:
             pdf_content: PDF file content
-            
+
         Returns:
             True if encrypted
         """
@@ -56,7 +56,7 @@ class PDFEncryptionHandler:
 
         Args:
             pdf_content: PDF file content
-            
+
         Returns:
             Encryption metadata
         """
@@ -116,7 +116,7 @@ class PDFEncryptionHandler:
             logger.debug(f"Error extracting encryption metadata: {e}")
 
         return metadata
-    
+
     def try_decrypt(
         self,
         pdf_content: bytes,
