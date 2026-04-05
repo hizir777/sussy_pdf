@@ -12,10 +12,10 @@ import logging
 from typing import Optional, Tuple
 
 try:
-    from PyPDF4 import PdfReader
-    PYPDF4_AVAILABLE = True
+    from pypdf import PdfReader
+    PYPDF_AVAILABLE = True
 except ImportError:
-    PYPDF4_AVAILABLE = False
+    PYPDF_AVAILABLE = False
 
 try:
     from Crypto.Cipher import AES
@@ -33,10 +33,10 @@ class PDFEncryptionHandler:
     
     def __init__(self):
         """Initialize encryption handler."""
-        if not PYPDF4_AVAILABLE:
+        if not PYPDF_AVAILABLE:
             logger.warning(
-                "PyPDF4 not installed. "
-                "Install with: pip install PyPDF4"
+                "pypdf not installed. "
+                "Install with: pip install pypdf"
             )
         
         if not CRYPTO_AVAILABLE:
@@ -54,7 +54,7 @@ class PDFEncryptionHandler:
         Returns:
             True if encrypted
         """
-        if not PYPDF4_AVAILABLE:
+        if not PYPDF_AVAILABLE:
             # Fallback: check for /Encrypt in content
             return b'/Encrypt' in pdf_content
         
@@ -82,7 +82,7 @@ class PDFEncryptionHandler:
             'requires_password': False,
         }
         
-        if not PYPDF4_AVAILABLE:
+        if not PYPDF_AVAILABLE:
             metadata['is_encrypted'] = b'/Encrypt' in pdf_content
             return metadata
         
@@ -146,8 +146,8 @@ class PDFEncryptionHandler:
         Returns:
             Decrypted content or None if failed
         """
-        if not PYPDF4_AVAILABLE:
-            logger.warning("PyPDF4 required for decryption")
+        if not PYPDF_AVAILABLE:
+            logger.warning("pypdf required for decryption")
             return None
         
         try:
@@ -162,7 +162,7 @@ class PDFEncryptionHandler:
                 
                 # Write decrypted content back
                 from io import BytesIO
-                from PyPDF4 import PdfWriter
+                from pypdf import PdfWriter
                 
                 output = BytesIO()
                 writer = PdfWriter()

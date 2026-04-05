@@ -25,7 +25,7 @@ classifiers = [
 dependencies = [
     # PDF Analysis
     "pdfminer.six==20251230",
-    "PyPDF4==3.0.1",
+    "pypdf==4.0.1",
     
     # File Type Detection
     "python-magic-bin==0.4.14; sys_platform == 'win32'",
