@@ -3,7 +3,7 @@
 
 # PDF Analiz
 pdfminer.six==20251230
-pypdf==4.0.1  # PDF encryption/decryption support
+pypdf==6.9.2  # PDF encryption/decryption support
 
 # Dosya Tipi Tespiti
 python-magic-bin==0.4.14 ; sys_platform == 'win32'
@@ -31,8 +31,8 @@ uvicorn==0.34.0
 python-multipart==0.0.22
 
 # Güvenlik & Kimlik Doğrulama (v1.1.0+)
-python-jose==3.3.0  # JWT tokens
-cryptography==43.0.0  # Encryption, secure key management
+python-jose==3.4.0  # JWT tokens
+cryptography==46.0.6  # Encryption, secure key management
 pycryptodome==3.21.0  # AES encryption for PDF password-protected files
 
 # Rate Limiting (v1.1.0+)
