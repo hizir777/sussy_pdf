@@ -17,8 +17,8 @@ requests==2.33.0
 
 # Çevresel Değişkenler
 python-dotenv==1.0.1
-pydantic==2.0.0  # Settings configuration
-pydantic-settings==2.0.0  # .env file management
+pydantic==2.9.0  # Settings configuration (FastAPI 0.135.3 requires >=2.9.0)
+pydantic-settings==2.0.3  # .env file management
 
 # CLI Arayüzü
 rich==13.9.4

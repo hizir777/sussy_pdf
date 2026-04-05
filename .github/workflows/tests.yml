@@ -42,7 +42,7 @@ jobs:
         pytest tests/ -v --cov=src --cov-report=xml
     
     - name: Upload coverage
-      uses: codecov/codecov-action@54bcd8715eee62d40e33c6b4baa56bea1aab1119 # v4.1.1
+      uses: codecov/codecov-action@v4.3.0
       with:
         file: ./coverage.xml
         flags: unittests
