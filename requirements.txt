@@ -31,7 +31,7 @@ uvicorn==0.34.0
 python-multipart==0.0.22
 
 # Güvenlik & Kimlik Doğrulama (v1.1.0+)
-PyJWT==2.8.0  # JWT tokens
+PyJWT==2.12.0  # JWT tokens
 cryptography==46.0.6  # Encryption, secure key management
 pycryptodome==3.21.0
 
