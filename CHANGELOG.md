@@ -6,7 +6,7 @@ Format [Keep a Changelog](https://keepachangelog.com/) tarafından takip edilir 
 
 ---
 
-## [1.1.0] — April 5, 2026 (Planned - Sprint 1)
+## [1.1.0] — April 5, 2026 (In Progress - Sprint 1)
 
 ### Added (Yeni)
 - ✅ **JWT Token Authentication** — API endpoints'e token tabanlı authentication

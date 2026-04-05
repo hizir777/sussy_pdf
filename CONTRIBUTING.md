@@ -1,6 +1,6 @@
 # 🤝 Geliştirici Rehberi — Contributing to Sussy PDF
 
-Sussy PDF projelerine katkı yapmaktan dolayı teşekkür ederiz! Bu belgele projeyi nasıl geliştireceğiniz, test edeceğiniz ve pull request (PR) sunacağınız konusunda talimatlar bulunmaktadır.
+Sussy PDF projelerine katkı yapmaktan dolayı teşekkür ederiz! Bu belgedeki projeyi nasıl geliştireceğiniz, test edeceğiniz ve pull request (PR) sunacağınız konusunda talimatlar bulunmaktadır.
 
 ## 📋 İçindekiler
 
@@ -352,7 +352,7 @@ Ne olması gerekiyordu?
 ## Ortam
 - OS: Windows 11 / Ubuntu 22.04
 - Python: 3.10
-- Surus PDF: v1.0.0
+- Sussy PDF: v1.0.0
 ```
 
 ### Özellik İsteği

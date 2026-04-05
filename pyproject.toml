@@ -25,6 +25,7 @@ classifiers = [
 dependencies = [
     # PDF Analysis
     "pdfminer.six==20251230",
+    "PyPDF4==3.0.1",
     
     # File Type Detection
     "python-magic-bin==0.4.14; sys_platform == 'win32'",
@@ -38,7 +39,8 @@ dependencies = [
     
     # Configuration
     "python-dotenv==1.0.1",
-    "pydantic>=2.0.0",
+    "pydantic==2.0.0",
+    "pydantic-settings==2.0.0",
     
     # CLI & UI
     "rich==13.9.4",

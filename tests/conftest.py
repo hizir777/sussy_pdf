@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 @pytest.fixture
 def sample_pdf_content():
     """Load sample normal PDF."""
-    fixture_path = Path(__file__).parent / "tests" / "fixtures"
+    fixture_path = Path(__file__).parent / "fixtures"
     sample_file = fixture_path / "sample.normal.pdf"
     
     if sample_file.exists():

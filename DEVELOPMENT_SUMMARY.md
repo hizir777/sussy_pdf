@@ -24,9 +24,9 @@
 
 | Dosya | Amaç | Etki |
 |-------|------|------|
-| **bug_report.yml** | Standartlaştırılmış bug raporlama | 🔴 YÜKSEK |
-| **feature_request.yml** | Standardlaştırılmış özellik isteği | 🔴 YÜKSEK |
-| **project_tracking.yml** | Proje yönetimi template'i | 🟡 ORTA |
+| **01_bug_report.yml** | Standartlaştırılmış bug raporlama | 🔴 YÜKSEK |
+| **02_feature_request.yml** | Standardlaştırılmış özellik isteği | 🔴 YÜKSEK |
+| **03_project_tracking.yml** | Proje yönetimi template'i | 🟡 ORTA |
 | **tests.yml** | CI/CD test workflow | 🔴 YÜKSEK |
 | **quality.yml** | Code quality workflow | 🔴 YÜKSEK |
 
@@ -35,7 +35,7 @@
 | Modül | Amaç | Features |
 |-------|------|----------|
 | **`src/security.py`** | Authentication & validation | JWT, API Keys, SSRF/LFI prevention |
-| **`src/audit_logging.py`** | Terştilenmiş logging | JSON format, structured events, audit trail |
+| **`src/audit_logging.py`** | Yapılandırılmış logging | JSON format, structured events, audit trail |
 | **`src/encryption_handler.py`** | PDF encryption support | AES-128/256 decrypt, metadata extraction |
 | **`src/config.py`** | Centralized settings | Pydantic-based .env parsing |
 

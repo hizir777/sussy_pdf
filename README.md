@@ -180,7 +180,7 @@ curl -X POST http://localhost:8443/api/analyze \
 
 ✅ **Gömülü**: Input validation, rate limiting, CORS protection  
 ✅ **Şifreleme**: AES-128/256 PDF şifre çözme desteği  
-✅ **Logging**: Terştilenmiş JSON audit trail  
+✅ **Logging**: Yapılandırılmış JSON audit trail  
 ✅ **Docker**: Rootless container, read-only filesystem  
 
 Detaylar: [SECURITY.md](SECURITY.md)

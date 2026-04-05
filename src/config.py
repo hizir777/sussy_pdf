@@ -5,8 +5,8 @@ Centralized settings from .env file
 """
 
 import os
-from typing import List
-from pydantic import BaseSettings, Field
+from pydantic import Field
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     # CORS & Rate Limiting
     # ============================================
     
-    cors_origins: List[str] = Field(
+    cors_origins: list[str] = Field(
         ["http://localhost:8443", "http://localhost:3000"],
         env="CORS_ORIGINS"
     )

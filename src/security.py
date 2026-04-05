@@ -4,7 +4,6 @@ Security & Authentication Module (v1.1.0+)
 Handles:
 - JWT token generation & validation
 - API Key management
-- Password hashing (bcryptjs)
 - Input validation & sanitization
 """
 

@@ -3,6 +3,7 @@
 
 # PDF Analiz
 pdfminer.six==20251230
+PyPDF4==3.0.1  # PDF encryption/decryption support
 
 # Dosya Tipi Tespiti
 python-magic-bin==0.4.14 ; sys_platform == 'win32'
@@ -16,6 +17,8 @@ requests==2.33.0
 
 # Çevresel Değişkenler
 python-dotenv==1.0.1
+pydantic==2.0.0  # Settings configuration
+pydantic-settings==2.0.0  # .env file management
 
 # CLI Arayüzü
 rich==13.9.4
