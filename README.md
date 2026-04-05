@@ -57,7 +57,6 @@ python -m venv .venv
 
 # Bağımlılıkları kur
 pip install -r requirements.txt
-pip install -e ".[dev]"
 
 # Çevresel değişkenleri ayarla
 copy .env.example .env
@@ -108,16 +107,6 @@ python -m src.main serve --port 8443
 # POST ile PDF analiz et
 curl -X POST http://localhost:8443/api/analyze \
   -F "file=@suspicious.pdf"
-```
-
-## 🧪 Testler
-
-```bash
-# Tüm testleri çalıştır
-pytest tests/ -v
-
-# Belirli modül testi
-pytest tests/test_tag_scanner.py -v
 ```
 
 ## 📊 Tespit Edilen Tehdit Etiketleri
