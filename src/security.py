@@ -12,7 +12,7 @@ import os
 import secrets
 from datetime import datetime, timedelta
 from functools import wraps
-from typing import Any, Dict
+from typing import Any
 from urllib.parse import urlparse
 
 from fastapi import Depends, HTTPException, status
@@ -278,7 +278,7 @@ security = HTTPBearer()
 
 async def get_current_user(
     credentials: HTTPAuthCredentials = Depends(security)
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Validate JWT token from Authorization header.
 
     Args:
