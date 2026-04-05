@@ -54,10 +54,9 @@ dependencies = [
     "jinja2==3.1.4",
     
     # Security & Authentication (v1.1.0+)
-    "python-jose==3.4.0",
+    "PyJWT==2.8.0",
     "cryptography==46.0.6",
     "pycryptodome==3.21.0",
-    "pyasn1==0.6.3",  # Added to fix CVE-2026-30922
     
     # Rate Limiting (v1.1.0+)
     "slowapi==0.1.9",

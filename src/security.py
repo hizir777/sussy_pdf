@@ -17,7 +17,8 @@ from urllib.parse import urlparse
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthCredentials, HTTPBearer
-from jose import JWTError, jwt
+import jwt
+from jwt.exceptions import InvalidTokenError as JWTError
 
 logger = logging.getLogger(__name__)
 

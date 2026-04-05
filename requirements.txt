@@ -31,10 +31,9 @@ uvicorn==0.34.0
 python-multipart==0.0.22
 
 # Güvenlik & Kimlik Doğrulama (v1.1.0+)
-python-jose==3.4.0  # JWT tokens
+PyJWT==2.8.0  # JWT tokens
 cryptography==46.0.6  # Encryption, secure key management
 pycryptodome==3.21.0
-pyasn1==0.6.3  # Added to fix CVE-2026-30922  # AES encryption for PDF password-protected files
 
 # Rate Limiting (v1.1.0+)
 slowapi==0.1.9  # Async-compatible rate limiter
