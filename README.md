@@ -1,4 +1,4 @@
-# 🔬 Sussy PDF — Şüpheli PDF Analiz Platformu
+# 🔬 Sussy PDF — Tersine Mühendislik Vize Projesi - Şüpheli PDF Analiz Platformu
 
 <div align="center">
 
