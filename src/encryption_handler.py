@@ -7,7 +7,7 @@ Supports:
 - Encryption metadata extraction
 """
 
-import os
+
 import logging
 from typing import Optional, Tuple
 
@@ -16,14 +16,6 @@ try:
     PYPDF_AVAILABLE = True
 except ImportError:
     PYPDF_AVAILABLE = False
-
-try:
-    from Crypto.Cipher import AES
-    from Crypto.Hash import SHA256, SHA512
-    from Crypto.Util.Padding import unpad
-    CRYPTO_AVAILABLE = True
-except ImportError:
-    CRYPTO_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 
@@ -37,12 +29,6 @@ class PDFEncryptionHandler:
             logger.warning(
                 "pypdf not installed. "
                 "Install with: pip install pypdf"
-            )
-        
-        if not CRYPTO_AVAILABLE:
-            logger.warning(
-                "pycryptodome not installed. "
-                "Install with: pip install pycryptodome"
             )
     
     def is_encrypted(self, pdf_content: bytes) -> bool:
@@ -98,9 +84,8 @@ class PDFEncryptionHandler:
                     # Algorithm detection
                     if b'/V' in encrypt_dict and b'/R' in encrypt_dict:
                         v = encrypt_dict[b'/V']
-                        r = encrypt_dict[b'/R']
                         
-                        # V: encryption version, R: revision
+                        # V: encryption version
                         if v == 1:
                             metadata['algorithm'] = 'RC4-40'
                             metadata['key_length'] = 40

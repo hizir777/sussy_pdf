@@ -4,7 +4,7 @@ Application Configuration Management (v1.1.0+)
 Centralized settings from .env file
 """
 
-import os
+
 from pydantic import Field
 from pydantic_settings import BaseSettings
 
@@ -117,17 +117,17 @@ class Settings(BaseSettings):
         """Get max file size in bytes."""
         return self.max_file_size_mb * 1024 * 1024
     
-    def get_output_formats(self) -> List[str]:
+    def get_output_formats(self) -> list[str]:
         """Get list of output formats."""
         return [fmt.strip() for fmt in self.output_formats.split(',')]
     
-    def get_cors_origins(self) -> List[str]:
+    def get_cors_origins(self) -> list[str]:
         """Get CORS origins as list."""
         if isinstance(self.cors_origins, str):
             import json
             try:
                 return json.loads(self.cors_origins)
-            except:
+            except Exception:
                 return self.cors_origins.split(',')
         return self.cors_origins
 

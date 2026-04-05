@@ -25,7 +25,11 @@ class TestFileHandler:
 
     def test_valid_pdf_ingestion(self):
         """Geçerli PDF dosyasını alabilmeli."""
-        content = b"%PDF-1.7\n1 0 obj\n<< /Type /Catalog >>\nendobj\nxref\n0 1\n0000000000 65535 f \ntrailer\n<< /Root 1 0 R /Size 1 >>\nstartxref\n9\n%%EOF"
+        content = (
+            b"%PDF-1.7\n1 0 obj\n<< /Type /Catalog >>\nendobj\nxref\n0 1\n"
+            b"0000000000 65535 f \ntrailer\n<< /Root 1 0 R /Size 1 >>\n"
+            b"startxref\n9\n%%EOF"
+        )
         path = self._create_temp_pdf(content)
         try:
             result = self.handler.ingest(path)
