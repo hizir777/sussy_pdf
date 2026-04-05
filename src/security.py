@@ -7,17 +7,17 @@ Handles:
 - Input validation & sanitization
 """
 
+import logging
 import os
 import secrets
 from datetime import datetime, timedelta
-from typing import Optional, Dict, Any
 from functools import wraps
+from typing import Any
 from urllib.parse import urlparse
 
-from fastapi import HTTPException, status, Depends
-from fastapi.security import HTTPBearer, HTTPAuthCredentials
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPAuthCredentials, HTTPBearer
 from jose import JWTError, jwt
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -32,49 +32,49 @@ JWT_EXPIRATION_HOURS = int(os.getenv("JWT_EXPIRATION_HOURS", 24))
 
 class TokenManager:
     """JWT token generation & validation."""
-    
+
     @staticmethod
     def create_token(
-        data: Dict[str, Any],
-        expires_delta: Optional[timedelta] = None,
+        data: dict[str, Any],
+        expires_delta: timedelta | None = None,
     ) -> str:
         """Generate JWT token.
-        
+
         Args:
             data: Claims to encode
             expires_delta: Custom expiration time
-            
+
         Returns:
             Encoded JWT token
         """
         to_encode = data.copy()
-        
+
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
         else:
             expire = datetime.utcnow() + timedelta(hours=JWT_EXPIRATION_HOURS)
-        
+
         to_encode.update({"exp": expire})
-        
+
         encoded_jwt = jwt.encode(
             to_encode,
             JWT_SECRET,
             algorithm=JWT_ALGORITHM
         )
-        
+
         logger.info(f"Token created for user: {data.get('sub', 'unknown')}")
         return encoded_jwt
-    
+
     @staticmethod
-    def verify_token(token: str) -> Dict[str, Any]:
+    def verify_token(token: str) -> dict[str, Any]:
         """Verify & decode JWT token.
-        
+
         Args:
             token: JWT token to verify
-            
+
         Returns:
             Decoded token payload
-            
+
         Raises:
             HTTPException: If token invalid/expired
         """
@@ -85,7 +85,7 @@ class TokenManager:
                 algorithms=[JWT_ALGORITHM]
             )
             return payload
-        
+
         except JWTError as e:
             logger.warning(f"Invalid token: {str(e)}")
             raise HTTPException(
@@ -101,14 +101,14 @@ class TokenManager:
 
 class APIKeyManager:
     """API Key generation & validation."""
-    
+
     @staticmethod
     def generate_api_key(prefix: str = "sussy") -> str:
         """Generate secure API key.
-        
+
         Args:
             prefix: Key prefix (e.g., "sussy_")
-            
+
         Returns:
             Generated API key
         """
@@ -118,16 +118,16 @@ class APIKeyManager:
         
         logger.info(f"API key generated with prefix: {prefix}")
         return api_key
-    
+
     @staticmethod
     def hash_api_key(api_key: str) -> str:
         """Hash API key for storage (simple example).
-        
+
         In production, use bcryptjs.
-        
+
         Args:
             api_key: Raw API key
-            
+
         Returns:
             Hashed API key
         """
@@ -141,23 +141,21 @@ class APIKeyManager:
 
 class InputValidator:
     """Input validation & sanitization."""
-    
+
     @staticmethod
     def validate_file_path(file_path: str, max_size_mb: int = 500) -> bool:
         """Validate PDF file path & size.
-        
+
         Args:
             file_path: Path to PDF file
             max_size_mb: Maximum file size in MB
-            
+
         Returns:
             True if valid
-            
+
         Raises:
             ValueError: If invalid
         """
-        import ipaddress
-        
         # Check if file exists
         if not os.path.exists(file_path):
             raise ValueError(f"File not found: {file_path}")

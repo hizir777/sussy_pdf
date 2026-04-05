@@ -8,12 +8,12 @@ Handles:
 - Error tracking
 """
 
-import logging
 import json
+import logging
 import os
 from datetime import datetime
-from typing import Any, Dict, Optional
 from pathlib import Path
+from typing import Any
 
 # ============================================
 # Structured Logger Setup
@@ -21,46 +21,46 @@ from pathlib import Path
 
 class StructuredLogger:
     """JSON-formatted structured logging."""
-    
-    def __init__(self, name: str, log_file: Optional[str] = None):
+
+    def __init__(self, name: str, log_file: str | None = None):
         """Initialize structured logger.
-        
+
         Args:
             name: Logger name
             log_file: Optional log file path
         """
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
-        
+
         # Create handlers
         handlers = []
-        
+
         # Console handler
         console_handler = logging.StreamHandler()
         console_handler.setLevel(os.getenv("LOG_LEVEL", "INFO"))
         handlers.append(console_handler)
-        
+
         # File handler (if specified)
         if log_file:
             Path(log_file).parent.mkdir(parents=True, exist_ok=True)
             file_handler = logging.FileHandler(log_file)
             file_handler.setLevel(logging.DEBUG)
             handlers.append(file_handler)
-        
+
         # Set formatters
         log_format = os.getenv("LOG_FORMAT", "json")
-        
+
         if log_format == "json":
             formatter = JSONFormatter()
         else:
             formatter = logging.Formatter(
                 '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
             )
-        
+
         for handler in handlers:
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
-    
+
     def log_event(
         self,
         event_type: str,
@@ -69,7 +69,7 @@ class StructuredLogger:
         **kwargs
     ) -> None:
         """Log structured event.
-        
+
         Args:
             event_type: Type of event (e.g., 'auth_login', 'file_uploaded')
             severity: Severity level (INFO, WARNING, ERROR, CRITICAL)
@@ -83,14 +83,14 @@ class StructuredLogger:
             'message': message,
             'extra': kwargs
         }
-        
+
         level = getattr(logging, severity, logging.INFO)
         self.logger.log(level, json.dumps(data))
 
 
 class JSONFormatter(logging.Formatter):
     """JSON logging formatter."""
-    
+
     def format(self, record: logging.LogRecord) -> str:
         """Format log record as JSON."""
         log_data = {
@@ -99,11 +99,11 @@ class JSONFormatter(logging.Formatter):
             'logger': record.name,
             'message': record.getMessage(),
         }
-        
+
         # Add extra fields if available
         if hasattr(record, 'extra'):
             log_data.update(record.extra)
-        
+
         return json.dumps(log_data)
 
 
@@ -113,7 +113,7 @@ class JSONFormatter(logging.Formatter):
 
 class AuditLogger:
     """Audit trail for sensitive operations."""
-    
+
     def __init__(self):
         """Initialize audit logger."""
         log_file = os.getenv(
@@ -121,15 +121,15 @@ class AuditLogger:
             "./logs/sussy_pdf.log"
         )
         self.logger = StructuredLogger(__name__, log_file)
-    
+
     def log_authentication(
         self,
         user: str,
         success: bool,
-        ip_address: Optional[str] = None,
+        ip_address: str | None = None,
     ) -> None:
         """Log authentication attempt.
-        
+
         Args:
             user: Username or API key
             success: Whether authentication succeeded
@@ -143,16 +143,16 @@ class AuditLogger:
             ip_address=ip_address,
             success=success
         )
-    
+
     def log_file_analysis(
         self,
         file_name: str,
         file_size_bytes: int,
-        user: Optional[str] = None,
+        user: str | None = None,
         duration_seconds: float = 0,
     ) -> None:
         """Log PDF analysis operation.
-        
+
         Args:
             file_name: Analyzed file name
             file_size_bytes: File size in bytes
@@ -168,16 +168,16 @@ class AuditLogger:
             user=user,
             duration_seconds=duration_seconds
         )
-    
+
     def log_security_event(
         self,
         event_name: str,
         description: str,
         severity: str = 'WARNING',
-        details: Optional[Dict[str, Any]] = None,
+        details: dict[str, Any] | None = None,
     ) -> None:
         """Log security-related event.
-        
+
         Args:
             event_name: Security event name
             description: Event description
@@ -191,16 +191,16 @@ class AuditLogger:
             event_name=event_name,
             **(details or {})
         )
-    
+
     def log_error(
         self,
         error_type: str,
         error_message: str,
-        user: Optional[str] = None,
-        file_name: Optional[str] = None,
+        user: str | None = None,
+        file_name: str | None = None,
     ) -> None:
         """Log error event.
-        
+
         Args:
             error_type: Type of error
             error_message: Error message
@@ -215,7 +215,7 @@ class AuditLogger:
             user=user,
             file_name=file_name
         )
-    
+
     def log_rate_limit_exceeded(
         self,
         user_or_ip: str,
@@ -223,7 +223,7 @@ class AuditLogger:
         limit: int,
     ) -> None:
         """Log rate limit exceeded.
-        
+
         Args:
             user_or_ip: User or IP address
             endpoint: API endpoint

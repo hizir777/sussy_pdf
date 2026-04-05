@@ -1,13 +1,12 @@
-"""
-Pytest Configuration & Fixtures (v1.1.0+)
+"""Pytest Configuration & Fixtures (v1.1.0+)
 
 Provides common fixtures for all tests.
 """
 
-
 import sys
-import pytest
 from pathlib import Path
+
+import pytest
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -18,7 +17,7 @@ def sample_pdf_content():
     """Load sample normal PDF."""
     fixture_path = Path(__file__).parent / "fixtures"
     sample_file = fixture_path / "sample.normal.pdf"
-    
+
     if sample_file.exists():
         return sample_file.read_bytes()
     else:
@@ -51,9 +50,9 @@ def sample_pdf_content():
 @pytest.fixture
 def malicious_pdf_content():
     """Load sample malicious PDF."""
-    fixture_path = Path(__file__).parent / "tests" / "fixtures"
+    fixture_path = Path(__file__).parent / "fixtures"
     sample_file = fixture_path / "sample.malicious.pdf"
-    
+
     if sample_file.exists():
         return sample_file.read_bytes()
     else:
