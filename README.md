@@ -1,14 +1,10 @@
-<div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/tr/b/be/%C4%B0stinye_%C3%9Cniversitesi_logo.png" alt="İstinye Üniversitesi Logosu" width="150" style="margin-bottom: 20px" />
-</div>
-
 # 🔬 Sussy PDF — Tersine Mühendislik Vize Projesi - Şüpheli PDF Analiz Platformu
 
 <div align="center">
 
 **Görsel olarak masum görünen PDF dosyalarının arka planda nasıl bir "taşıyıcı" (dropper) olarak kullanılabileceğini tespit eden profesyonel analiz motoru.**
 
-**Danışman:** [Eğitmen/Danışman Adı]
+**Danışman:** *Keyvan Arasteh*
 
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen)](.github/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://python.org)
