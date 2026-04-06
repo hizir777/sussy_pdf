@@ -33,7 +33,7 @@
 ## 🎬 Demo
 Projenin Docker üzerindeki çalışma anını ve analiz sürecini aşağıdaki kayıttan izleyebilirsiniz:
 
-1) Tam haliyle youtube test videosu için:
+1) *Tam haliyle youtube test videosu için:*
 https://youtu.be/WRyvFiTWzvM
 
 ![Sussy PDF Proje Demosu](demo/project-demo.webm)
