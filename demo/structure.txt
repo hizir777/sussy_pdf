@@ -1,0 +1,157 @@
+sussy_pdf/
+├── .env
+├── .env.example
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 01_bug_report.yml
+│   │   ├── 02_feature_request.yml
+│   │   └── 03_project_tracking.yml
+│   └── workflows/
+│       ├── ci.yml
+│       ├── quality.yml
+│       └── tests.yml
+├── .gitignore
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── DEVELOPMENT_SUMMARY.md
+├── LICENSE
+├── README.md
+├── ROADMAP.md
+├── SECURITY.md
+├── TROUBLESHOOTING.md
+├── dashboard/
+│   ├── api_server.py
+│   ├── app.js
+│   ├── index.html
+│   └── style.css
+├── demo/
+│   ├── analysis_results.png
+│   ├── error_handling.txt
+│   ├── installation.txt
+│   ├── project-demo.webp
+│   ├── structure.txt
+│   └── test_results.txt
+├── docker/
+│   ├── Dockerfile
+│   └── docker-compose.yml
+├── docs/
+│   ├── img/
+│   │   ├── image.png
+│   │   ├── image1.png
+│   │   ├── image2.png
+│   │   ├── image3.png
+│   │   └── image4.png
+│   └── methodology.md
+├── htmlcov/
+│   ├── .gitignore
+│   ├── class_index.html
+│   ├── coverage_html_cb_188fc9a4.js
+│   ├── favicon_32_cb_c827f16f.png
+│   ├── function_index.html
+│   ├── index.html
+│   ├── keybd_closed_cb_900cfef5.png
+│   ├── status.json
+│   ├── style_cb_5c747636.css
+│   ├── z_145eef247bfb46b6___init___py.html
+│   ├── z_145eef247bfb46b6_audit_logging_py.html
+│   ├── z_145eef247bfb46b6_config_py.html
+│   ├── z_145eef247bfb46b6_encryption_handler_py.html
+│   ├── z_145eef247bfb46b6_main_py.html
+│   ├── z_145eef247bfb46b6_security_py.html
+│   ├── z_48248a49dba13b41___init___py.html
+│   ├── z_48248a49dba13b41_incremental_update_py.html
+│   ├── z_48248a49dba13b41_object_tree_py.html
+│   ├── z_48248a49dba13b41_pdf_parser_py.html
+│   ├── z_48248a49dba13b41_tag_scanner_py.html
+│   ├── z_4932a75b9eec33d5___init___py.html
+│   ├── z_4932a75b9eec33d5_feature_extractor_py.html
+│   ├── z_4932a75b9eec33d5_heuristic_scorer_py.html
+│   ├── z_4932a75b9eec33d5_mitre_mapper_py.html
+│   ├── z_4932a75b9eec33d5_yara_engine_py.html
+│   ├── z_6d1269bf920cc50f___init___py.html
+│   ├── z_6d1269bf920cc50f_ast_analyzer_py.html
+│   ├── z_6d1269bf920cc50f_js_deobfuscator_py.html
+│   ├── z_6d1269bf920cc50f_stream_decoder_py.html
+│   ├── z_6d1269bf920cc50f_string_decoder_py.html
+│   ├── z_d087c3205b7f0e08___init___py.html
+│   ├── z_d087c3205b7f0e08_ioc_generator_py.html
+│   ├── z_d087c3205b7f0e08_report_builder_py.html
+│   ├── z_dbd9f4ca305c7e1c___init___py.html
+│   ├── z_dbd9f4ca305c7e1c_file_handler_py.html
+│   ├── z_dbd9f4ca305c7e1c_metadata_extractor_py.html
+│   ├── z_e621d23362a28bda___init___py.html
+│   ├── z_e621d23362a28bda_js_emulator_py.html
+│   └── z_e621d23362a28bda_sandbox_monitor_py.html
+├── output/
+│   ├── malicious_simulation_report.html
+│   ├── malicious_simulation_report.json
+│   ├── malicious_simulation_report.md
+│   ├── suspicious_sample_report.html
+│   ├── suspicious_sample_report.json
+│   └── suspicious_sample_report.md
+├── pyproject.toml
+├── pytest.ini
+├── requirements.txt
+├── specs/
+│   └── yara_rules/
+│       ├── pdf_malicious.yar
+│       └── pdf_suspicious.yar
+├── src/
+│   ├── __init__.py
+│   ├── audit_logging.py
+│   ├── config.py
+│   ├── deobfuscation/
+│   │   ├── __init__.py
+│   │   ├── ast_analyzer.py
+│   │   ├── js_deobfuscator.py
+│   │   ├── stream_decoder.py
+│   │   └── string_decoder.py
+│   ├── dynamic_analysis/
+│   │   ├── __init__.py
+│   │   ├── js_emulator.py
+│   │   └── sandbox_monitor.py
+│   ├── encryption_handler.py
+│   ├── ingestion/
+│   │   ├── __init__.py
+│   │   ├── file_handler.py
+│   │   └── metadata_extractor.py
+│   ├── main.py
+│   ├── reporting/
+│   │   ├── __init__.py
+│   │   ├── ioc_generator.py
+│   │   ├── report_builder.py
+│   │   └── templates/
+│   │       └── report_template.html
+│   ├── scoring/
+│   │   ├── __init__.py
+│   │   ├── feature_extractor.py
+│   │   ├── heuristic_scorer.py
+│   │   ├── mitre_mapper.py
+│   │   └── yara_engine.py
+│   ├── security.py
+│   └── static_analysis/
+│       ├── __init__.py
+│       ├── incremental_update.py
+│       ├── object_tree.py
+│       ├── pdf_parser.py
+│       └── tag_scanner.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── fixtures/
+│   │   ├── benign_sample.pdf
+│   │   ├── generate_fixtures.py
+│   │   ├── malicious_simulation.pdf
+│   │   └── suspicious_sample.pdf
+│   ├── test_deobfuscation.py
+│   ├── test_ingestion.py
+│   ├── test_parser.py
+│   ├── test_scoring.py
+│   └── test_tag_scanner.py
+├── uploads/
+└── vize_on_gereksinimi/
+    ├── COMPREHENSIVE_EVALUATION.md
+    ├── POST_DEVELOPMENT_EVALUATION.md
+    └── Uptime_Kuma_analyze.md

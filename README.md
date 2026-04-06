@@ -30,6 +30,16 @@
 
 ---
 
+## 🎬 Demo
+
+Projenin Docker üzerindeki çalışma anını ve analiz sürecini aşağıdaki kayıttan izleyebilirsiniz:
+
+![Sussy PDF Proje Demosu](demo/project-demo.webm)
+
+*Görsel: Dashboard üzerinden şüpheli PDF analizi ve risk puanlaması süreci.*
+
+---
+
 ## 🏗️ Mimari
 
 ```
